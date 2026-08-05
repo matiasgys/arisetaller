@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arise Taller — Marroquinería artesanal, Montevideo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-deep:#1B140F;
+    --bg-panel:#241B14;
+    --bg-panel-2:#2C2118;
+    --cream:#F1E6D3;
+    --tan-muted:#A8917A;
+    --brass:#C6963F;
+    --brass-dim:#8F6E33;
+    --oxblood:#8B3A2E;
+    --line:rgba(241,230,211,0.14);
+
+    --c-cognac:#A9652E;
+    --c-chocolate:#5A3825;
+    --c-oxblood:#6E2A22;
+    --c-negro:#211C17;
+    --c-camel:#C79A5B;
+
+    --display:'Fraunces', serif;
+    --body:'Work Sans', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+
+    --maxw:1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--bg-deep);
+    color:var(--cream);
+    font-family:var(--body);
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+
+  ::selection{ background:var(--brass); color:var(--bg-deep); }
+
+  :focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 32px; }
+
+  /* subtle grain used throughout on dark panels */
+  .grain{ position:relative; }
+  .grain::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:0.05;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(17, 11, 6, 0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo svg{ width:34px; height:34px; flex-shrink:0; }
+  .logo-text{ display:flex; flex-direction:column; line-height:1; }
+  .logo-text .name{
+    font-family:var(--display); font-weight:600; font-size:19px;
+    letter-spacing:0.5px; color:var(--cream);
+  }
+  .logo-text .sub{
+    font-family:var(--mono); font-size:9.5px; letter-spacing:2.5px;
+    color:var(--tan-muted); text-transform:uppercase; margin-top:3px;
+  }
+
+  nav.primary{ display:flex; align-items:center; gap:36px; }
+  nav.primary a{
+    font-family:var(--body); font-size:14.5px; color:var(--tan-muted);
+    position:relative; padding:4px 0; transition:color 0.25s ease;
+  }
+  nav.primary a:hover{ color:var(--cream); }
+  nav.primary a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+    background:var(--brass); transform:scaleX(0); transform-origin:right;
+    transition:transform 0.3s ease;
+  }
+  nav.primary a:hover::after{ transform:scaleX(1); transform-origin:left; }
+  .nav-cta{
+    font-family:var(--mono) !important; font-size:11.5px !important;
+    letter-spacing:1px; text-transform:uppercase; color:var(--bg-deep) !important;
+    background:var(--brass); padding:10px 18px; border-radius:2px;
+  }
+  .nav-cta:hover{ background:var(--cream) !important; }
+  .nav-cta::after{ display:none; }
+
+  .menu-toggle{
+    display:none; background:none; border:none; color:var(--cream);
+    width:34px; height:24px; position:relative; cursor:pointer; padding:0;
+  }
+  .menu-toggle span{
+    position:absolute; left:0; right:0; height:1.5px; background:var(--cream);
+    transition:all 0.3s ease;
+  }
+  .menu-toggle span:nth-child(1){ top:0; }
+  .menu-toggle span:nth-child(2){ top:11px; }
+  .menu-toggle span:nth-child(3){ top:22px; }
+
+  /* ---------- HERO / SWATCH SLIDER ---------- */
+  
+  .manifesto {
+    background-image: url(https://img.magnific.com/vector-gratis/gradiente-fondo-gradiente-granulado_474888-6891.jpg?semt=ais_test_b&w=740&q=80);
+  }
+  .hero{
+    padding:64px 32px 40px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .hero-kicker{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:3px;
+    color:var(--brass); text-transform:uppercase; margin:0 0 18px;
+    padding-top: 50px;
+  }
+  .hero-headline{
+    font-family:var(--display); font-weight:500; font-size:clamp(34px, 5.4vw, 64px);
+    line-height:1.05; margin:0 0 20px; max-width:16ch;
+  }
+  .hero-headline em{ font-style:italic; font-weight:400; color:var(--brass); }
+  .hero-sub{
+    font-size:16.5px; line-height:1.65; color:var(--tan-muted);
+    max-width:46ch; margin:0 0 44px;
+  }
+
+  .swatchbook{
+    display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center;
+  }
+
+  .swatch-stage{ position:relative; height:400px; }
+  .swatch-card{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:34px 30px 28px;
+    border-radius:6px 6px 16px 16px;
+    opacity:0; transform:translateY(16px) rotate(-1deg);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+    pointer-events:none;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    border:1px solid rgba(0,0,0,0.25);
+  }
+  .swatch-card.active{
+    opacity:1; transform:translateY(0) rotate(0deg); pointer-events:auto;
+  }
+  .swatch-card::before{
+    content:"";
+    position:absolute; top:18px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background:var(--bg-deep);
+    box-shadow:inset 0 2px 4px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .swatch-card::after{
+    content:"";
+    position:absolute; top:2px; left:50%; transform:translateX(-50%);
+    width:1px; height:20px;
+    background:repeating-linear-gradient(var(--cream) 0 3px, transparent 3px 6px);
+    opacity:0.55;
+  }
+  .swatch-top{ margin-top:26px; }
+  .swatch-leather{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:2px;
+    text-transform:uppercase; opacity:0.75;
+  }
+  .swatch-name{
+    font-family:var(--display); font-weight:600; font-size:30px; margin:6px 0 0;
+  }
+  .swatch-copy{
+    font-size:14.5px; line-height:1.55; max-width:30ch; opacity:0.92;
+  }
+  .swatch-hex{
+    font-family:var(--mono); font-size:11px; letter-spacing:1px; opacity:0.6;
+  }
+
+  .sw-cognac{ background:linear-gradient(160deg, var(--c-cognac), #7d4a20); color:#2B1607; }
+  .sw-chocolate{ background:linear-gradient(160deg, var(--c-chocolate), #3c2415); color:var(--cream); }
+  .sw-oxblood{ background:linear-gradient(160deg, var(--c-oxblood), #4a1a15); color:var(--cream); }
+  .sw-negro{ background:linear-gradient(160deg, #2b2620, var(--c-negro)); color:var(--cream); }
+  .sw-accesorios{ background:linear-gradient(160deg, #2b2620, var(--c-negro)); color:var(--cream); }
+    .swatch-controls{
+    display:flex; flex-direction:column; align-items:center; gap:22px;
+  }
+  .swatch-dots{ display:flex; flex-direction:column; gap:12px; }
+  .swatch-dot{
+    width:9px; height:9px; border-radius:50%; border:1px solid var(--tan-muted);
+    background:transparent; cursor:pointer; padding:0; transition:all 0.3s ease;
+  }
+  .swatch-dot.active{ background:var(--brass); border-color:var(--brass); transform:scale(1.25); }
+  .swatch-arrow{
+    width:36px; height:36px; border-radius:50%; border:1px solid var(--line);
+    background:transparent; color:var(--cream); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;
+  }
+  .swatch-arrow:hover{ border-color:var(--brass); color:var(--brass); }
+
+  @media (max-width:760px){
+    .swatchbook{ grid-template-columns:1fr; }
+    .swatch-controls{ flex-direction:row; justify-content:center; }
+    .swatch-dots{ flex-direction:row; }
+    .swatch-stage{ height:340px; }
+  }
+
+  /* ---------- MANIFESTO ---------- */
+  .manifesto{
+    padding:100px 32px; text-align:center; position:relative;
+  }
+  .manifesto .wrap{ max-width:780px; }
+  .manifesto-line{
+    font-family:var(--display); font-style:italic; font-weight:400;
+    font-size:clamp(22px, 3.2vw, 34px); line-height:1.45; color:var(--cream);
+  }
+  .manifesto-line .hl{ color:var(--brass); font-style:normal; font-weight:600; }
+  .manifesto-attr{
+    margin-top:26px; font-family:var(--mono); font-size:11.5px; letter-spacing:2px;
+    color:var(--tan-muted); text-transform:uppercase;
+  }
+  .rule{
+    width:48px; height:1px; background:var(--brass); margin:0 auto 28px;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{ padding:20px 32px 110px; }
+  .section-head{ margin-bottom:56px; max-width:560px; }
+  .section-eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:3px;
+    color:var(--brass); text-transform:uppercase; margin:0 0 14px;
+  }
+  .section-title{
+    font-family:var(--display); font-weight:500; font-size:clamp(26px,3.4vw,38px);
+    margin:0; line-height:1.15;
+  }
+
+  .process-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden;
+  }
+  .process-step{
+    background:var(--bg-panel); padding:34px 26px; position:relative; background-color: rgba(17, 11, 6, 0.8);
+  }
+  .process-num{
+    font-family:var(--mono); font-size:12px; color:var(--brass-dim); letter-spacing:1px;
+  }
+  .process-name{
+    font-family:var(--display); font-weight:600; font-size:19px; margin:14px 0 10px;
+  }
+  .process-desc{ font-size:13.5px; line-height:1.55; color:var(--tan-muted); }
+
+  @media (max-width:900px){
+    .process-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px){
+    .process-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- CATALOG ---------- */
+  .catalog{ padding:20px 32px 120px; }
+  .catalog-grid{
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:22px;
+  }
+  .cat-card{
+    border-radius:8px; overflow:hidden; border:1px solid var(--line);
+    background:var(--bg-panel); display:flex; flex-direction:column;
+    transition:transform 0.35s ease, border-color 0.35s ease;
+  }
+  .cat-card:hover{ transform:translateY(-6px); border-color:var(--brass-dim); }
+  .cat-swatch{
+    height:200px; position:relative; overflow:hidden;
+  }
+  .cat-swatch span{
+    position:absolute; bottom:12px; left:14px;
+    font-family:var(--mono); font-size:10px; letter-spacing:1.5px;
+    color:rgba(255,255,255,0.75); text-transform:uppercase;
+  }
+  .cat-body{ padding:22px; flex:1; display:flex; flex-direction:column; gap:8px; }
+  .cat-name{ font-family:var(--display); font-weight:600; font-size:19px; }
+  .cat-desc{ font-size:13.5px; color:var(--tan-muted); line-height:1.5; flex:1; }
+  .cat-link{
+    margin-top:8px; font-family:var(--mono); font-size:11px; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--brass); display:inline-flex; align-items:center; gap:6px;
+  }
+  .cat-link svg{ width:12px; height:12px; transition:transform 0.25s ease; }
+  .cat-card:hover .cat-link svg{ transform:translateX(4px); }
+
+  .sw-moda{background-image: url("images/chale.png"); background-position: center; background-size: cover;}
+.sw-billeteras{background-image: url("images/bille-male-09.png"); background-position: center; background-size: cover;}
+.sw-carteras{background-image: url("images/CB-02.jpg"); background-position: center; background-size: cover;}
+.sw-mates{background-image: url("images/1785352170891.png"); background-position: center; background-size: cover;}
+.sw-accesorios{background-image: url("images/pul.png"); background-position: center; background-size: cover;}
+
+  #oficio {background-image: url(09.jpg); background-position: center; background-size: cover; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken;}
+
+  @media (max-width:900px){ .catalog-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .catalog-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- VALUES ---------- */
+  .values{
+    padding:100px 32px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg-panel);
+  }
+  .values-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:48px;
+  }
+  .value-item .rule{ margin:0 0 22px; }
+  .value-title{ font-family:var(--display); font-weight:600; font-size:22px; margin:0 0 12px; }
+  .value-desc{ font-size:14px; line-height:1.65; color:var(--tan-muted); }
+
+  #cuidado {background-image: url(images/05.jpg); background-position: center;background-attachment: fixed;background-size: cover; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken;}
+
+  .hechoamano {background-color: #000000ad; padding: 10px;}
+
+  @media (max-width:760px){ .values-grid{ grid-template-columns:1fr; gap:44px; } }
+
+  /* ---------- CTA / INSTAGRAM ---------- */
+  .cta-strip{
+    padding:110px 32px; text-align:center;
+  }
+  .cta-strip .section-eyebrow{ justify-content:center; display:flex; }
+  .cta-title{
+    font-family:var(--display); font-weight:500; font-size:clamp(28px,4vw,46px);
+    max-width:16ch; margin:0 auto 30px; line-height:1.15;
+  }
+  .cta-title em{ color:var(--brass); font-style:italic; font-weight:400; }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--brass); color:var(--bg-deep); font-weight:600;
+    font-size:14.5px; padding:16px 30px; border-radius:2px;
+    transition:background 0.25s ease, transform 0.25s ease;
+  }
+  .btn-primary:hover{ background:var(--cream); transform:translateY(-2px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line); padding:56px 32px 34px; background: rgba(17, 11, 6, 0.86);
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:48px;
+  }
+  .footer-brand .logo-text .name{ font-size:20px; }
+  .footer-tag{ margin-top:16px; font-size:13.5px; color:var(--tan-muted); line-height:1.6; max-width:32ch; }
+  .footer-col h4{
+    font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--brass); margin:0 0 16px;
+  }
+  .footer-col a, .footer-col p{
+    display:block; font-size:13.5px; color:var(--tan-muted); margin-bottom:10px; line-height:1.5;
+  }
+  .footer-col a:hover{ color:var(--cream); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:26px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.5px; color:var(--tan-muted);
+  }
+
+  @media (max-width:760px){
+    .footer-grid{ grid-template-columns:1fr; gap:32px; }
+    .footer-bottom{ flex-direction:column; gap:10px; align-items:flex-start; }
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- MOBILE NAV ---------- */
+  @media (max-width:900px){
+    nav.primary{
+      position:fixed; top:71px; left:0; right:0; bottom:0;
+      background:var(--bg-deep); flex-direction:column; align-items:flex-start;
+      padding:40px 32px; gap:26px;
+      transform:translateX(100%); transition:transform 0.4s ease;
+    }
+    nav.primary.open{ transform:translateX(0); }
+    nav.primary a{ font-size:20px; }
+    .menu-toggle{ display:block; }
+    .hero{ padding-top:48px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="Arise Taller — inicio">
+      <!--svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
+        <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+        <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
+        <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
+      </svg>
+      <span class="logo-text">
+        <span class="name">Arise Taller</span>
+        <span class="sub">Cuero · Montevideo</span>
+      </span-->
+      <img src="images/loguito.png" width="150px">
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary" id="primaryNav">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#oficio">Nuestro Oficio</a>
+      <a href="#cuidado">Cuidado del Cuero</a>
+      <a href="#contacto" class="nav-cta">Instagram</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="swatchbook">
+      <div class="swatch-stage" id="swatchStage">
+        <article class="swatch-card sw-cognac active" data-i="0">
+          <div class="swatch-top">
+            <p class="swatch-leather">Cuero vegetal · 01</p>
+            <h3 class="swatch-name">Cognac</h3>
+          </div>
+          <p class="swatch-copy">Lo elegís claro. Vos lo vas a oscurecer, sol tras sol, uso tras uso.</p>
+          <p class="swatch-hex">#A9652E</p>
+        </article>
+        <article class="swatch-card sw-chocolate" data-i="1">
+          <div class="swatch-top">
+            <p class="swatch-leather">Cuero vegetal · 02</p>
+            <h3 class="swatch-name">Chocolate</h3>
+          </div>
+          <p class="swatch-copy">Lo llevás todos los días. Con cada roce, ganás una marca que es solo tuya.</p>
+          <p class="swatch-hex">#5A3825</p>
+        </article>
+        <article class="swatch-card sw-oxblood" data-i="2">
+          <div class="swatch-top">
+            <p class="swatch-leather">Cuero vegetal · 03</p>
+            <h3 class="swatch-name">Oxblood</h3>
+          </div>
+          <p class="swatch-copy">Lo elegís intenso. Con los años, vos lo hacés más profundo todavía.</p>
+          <p class="swatch-hex">#6E2A22</p>
+        </article>
+        <article class="swatch-card sw-negro" data-i="3">
+          <div class="swatch-top">
+            <p class="swatch-leather">Cuero vegetal · 04</p>
+            <h3 class="swatch-name">Negro</h3>
+          </div>
+          <p class="swatch-copy">Lo elegís firme. Sabés que ninguna otra pieza va a ser igual a la tuya.</p>
+          <p class="swatch-hex">#211C17</p>
+        </article>
+      </div>
+      <div class="swatch-controls">
+        <button class="swatch-arrow" id="prevBtn" aria-label="Cuero anterior">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="swatch-dots" id="swatchDots"></div>
+        <button class="swatch-arrow" id="nextBtn" aria-label="Cuero siguiente">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <p class="hero-kicker">Marroquinería hecha a mano</p>
+    <h1 class="hero-headline">Piezas que <em>envejecen</em><br>con vos.</h1>
+    <p class="hero-sub">Cada cuero cuenta una historia distinta. Elegí el que va a acompañar la tuya — y mirá cómo cambia con el tiempo, contigo.</p>
+  </section>
+
+  <!-- CATALOG -->
+  <section class="catalog" id="catalogo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">Catálogo</p>
+        <h2 class="section-title">Lo que vas a llevar con vos.</h2>
+      </div>
+      <div class="catalog-grid reveal">
+        <div class="cat-card">
+          <div class="cat-swatch sw-billeteras"><!--span>Chocolate</span--></div>
+          <div class="cat-body">
+            <h3 class="cat-name">Billeteras</h3>
+            <p class="cat-desc">Chica, liviana, exacta. La llevás todos los días hasta que ya no imaginás salir sin ella.</p>
+            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-swatch sw-carteras"><!--span>Oxblood</span--></div>
+          <div class="cat-body">
+            <h3 class="cat-name">Carteras</h3>
+            <p class="cat-desc">Con lugar para lo que necesitás y carácter propio desde el primer día que la usás.</p>
+            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-swatch sw-moda"><!--span>Cognac</span--></div>
+          <div class="cat-body">
+            <h3 class="cat-name">Moda</h3>
+            <p class="cat-desc">Una sola pieza de cuero, envuelta a mano. Lo cruzás y salís — no necesitás nada más.</p>
+            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-swatch sw-mates"><!--span>Negro</span--></div>
+          <div class="cat-body">
+            <h3 class="cat-name">Mates</h3>
+            <p class="cat-desc">Para la mesa de todos los días. Cuero grueso, base firme, un ritual que se merece esto.</p>
+            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-swatch sw-accesorios"><!--span>Cognac</span--></div>
+          <div class="cat-body">
+            <h3 class="cat-name">Accsesorios</h3>
+            <p class="cat-desc">Una sola pieza de cuero, envuelta a mano. Lo cruzás y salís — no necesitás nada más.</p>
+            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto grain reveal">
+    <div class="wrap">
+      <div class="rule"></div>
+      <p class="manifesto-line">Acá no hay producción en serie, ni atajos, ni copias. <span class="hl">Cada pieza que sale del taller es irrepetible</span> — diseñada para envejecer con vos y contar tu historia.</p>
+      <p class="manifesto-attr">— Arise Taller · Artesania en Cuero —</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="oficio">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">Nuestro oficio</p>
+        <h2 class="section-title">De cuero crudo a pieza terminada, todo pasa por estas manos.</h2>
+      </div>
+      <div class="process-grid reveal">
+        <div class="process-step">
+          <p class="process-num">01</p>
+          <h3 class="process-name">Corte</h3>
+          <p class="process-desc">Elegimos el cuero y trazamos el patrón, pieza por pieza, sin desperdicio.</p>
+        </div>
+        <div class="process-step">
+          <p class="process-num">02</p>
+          <h3 class="process-name">Armado</h3>
+          <p class="process-desc">Encolamos y damos forma a mano, ajustando cada detalle a la pieza real.</p>
+        </div>
+        <div class="process-step">
+          <p class="process-num">03</p>
+          <h3 class="process-name">Cosido a mano</h3>
+          <p class="process-desc">Puntada por puntada, con hilo encerado, para que dure años de uso diario.</p>
+        </div>
+        <div class="process-step">
+          <p class="process-num">04</p>
+          <h3 class="process-name">Terminación</h3>
+          <p class="process-desc">Pulimos cantos y aplicamos cera natural, dejando que el cuero respire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values grain" id="cuidado">
+    <div class="wrap values-grid">
+      <div class="value-item reveal hechoamano">
+        <div class="rule"></div>
+        <h3 class="value-title">Hecho a mano</h3>
+        <p class="value-desc">Corte, armado y cosido pasan por las mismas manos, del principio al final. No hay línea de producción — hay un oficio.</p>
+      </div>
+      <div class="value-item reveal hechoamano">
+        <div class="rule"></div>
+        <h3 class="value-title">Irrepetible</h3>
+        <p class="value-desc">Trabajamos en tiradas cortas o a pedido. Lo que elegís no lo vas a ver en cualquier lado.</p>
+      </div>
+      <div class="value-item reveal hechoamano">
+        <div class="rule"></div>
+        <h3 class="value-title">Perdura</h3>
+        <p class="value-desc">Cuero real que te va a durar muchos años. Con el uso, va tomando la forma y el tono de tu día a día.</p>
+        <!--p class="value-desc">Cuero vegetal, sin sellar el color. Con el uso, va tomando la forma y el tono de tu día a día.</p-->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip grain" id="contacto">
+    <div class="wrap">
+      <p class="section-eyebrow">Seguí el proceso</p>
+      <h2 class="cta-title">Cada pieza empieza con <em>una idea</em>, no con un catálogo.</h2>
+      <a href="https://instagram.com/arisetaller" class="btn-primary" target="_blank" rel="noopener">
+        Escribinos por Instagram
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" aria-label="Arise Taller">
+          <!--svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
+            <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+            <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
+            <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
+          </svg-->
+          <span class="logo-text">
+            <span class="name">Arise Taller</span>
+            <span class="sub">Artesania en Cuero</span>
+          </span>
+        </a>
+        <p class="footer-tag">Taller de marroquinería artesanal. Cueros nobles, trabajados a mano, pensados para durar.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#oficio">Nuestro oficio</a>
+        <a href="#cuidado">Cuidado del cuero</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <p>Montevideo, Uruguay</p>
+        <p>Envíos a todo el país</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Arise Taller</span>
+      <span>Hecho a mano, pieza por pieza</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // Swatch slider
+  const cards = Array.from(document.querySelectorAll('.swatch-card'));
+  const dotsWrap = document.getElementById('swatchDots');
+  let current = 0;
+  let autoplay;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'swatch-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Ver cuero ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function goTo(i){
+    cards[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (i + cards.length) % cards.length;
+    cards[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); restart(); });
+  document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); restart(); });
+
+  function restart(){
+    clearInterval(autoplay);
+    if (!reducedMotion) autoplay = setInterval(() => goTo(current + 1), 5200);
+  }
+  restart();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
