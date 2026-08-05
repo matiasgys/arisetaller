@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo — Arise Taller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-deep:#1B140F;
+    --bg-panel:#241B14;
+    --bg-panel-2:#2C2118;
+    --cream:#F1E6D3;
+    --tan-muted:#A8917A;
+    --brass:#C6963F;
+    --brass-dim:#8F6E33;
+    --oxblood:#8B3A2E;
+    --line:rgba(241,230,211,0.14);
+
+    --c-cognac:#A9652E;
+    --c-chocolate:#5A3825;
+    --c-oxblood:#6E2A22;
+    --c-negro:#211C17;
+
+    --display:'Fraunces', serif;
+    --body:'Work Sans', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+
+    --maxw:1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0; background:var(--bg-deep); color:var(--cream);
+    font-family:var(--body); font-weight:400; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  ::selection{ background:var(--brass); color:var(--bg-deep); }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 32px; }
+
+  .grain{ position:relative; }
+  .grain::after{
+    content:""; position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:0.05; mix-blend-mode:overlay; pointer-events:none;
+  }
+
+  /* ---------- HEADER (shared) ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(27,20,15,0.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:var(--maxw); margin:0 auto;
+  }
+  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo svg{ width:34px; height:34px; flex-shrink:0; }
+  .logo-text{ display:flex; flex-direction:column; line-height:1; }
+  .logo-text .name{ font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:0.5px; color:var(--cream); }
+  .logo-text .sub{ font-family:var(--mono); font-size:9.5px; letter-spacing:2.5px; color:var(--tan-muted); text-transform:uppercase; margin-top:3px; }
+
+  nav.primary{ display:flex; align-items:center; gap:36px; }
+  nav.primary a{ font-family:var(--body); font-size:14.5px; color:var(--tan-muted); position:relative; padding:4px 0; transition:color 0.25s ease; }
+  nav.primary a:hover, nav.primary a.active{ color:var(--cream); }
+  nav.primary a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+    background:var(--brass); transform:scaleX(0); transform-origin:right; transition:transform 0.3s ease;
+  }
+  nav.primary a:hover::after, nav.primary a.active::after{ transform:scaleX(1); transform-origin:left; }
+  .nav-cta{
+    font-family:var(--mono) !important; font-size:11.5px !important; letter-spacing:1px; text-transform:uppercase;
+    color:var(--bg-deep) !important; background:var(--brass); padding:10px 18px; border-radius:2px;
+  }
+  .nav-cta:hover{ background:var(--cream) !important; }
+  .nav-cta::after{ display:none; }
+
+  .menu-toggle{ display:none; background:none; border:none; color:var(--cream); width:34px; height:24px; position:relative; cursor:pointer; padding:0; }
+  .menu-toggle span{ position:absolute; left:0; right:0; height:1.5px; background:var(--cream); transition:all 0.3s ease; }
+  .menu-toggle span:nth-child(1){ top:0; }
+  .menu-toggle span:nth-child(2){ top:11px; }
+  .menu-toggle span:nth-child(3){ top:22px; }
+
+  @media (max-width:900px){
+    nav.primary{
+      position:fixed; top:71px; left:0; right:0; bottom:0; background:var(--bg-deep);
+      flex-direction:column; align-items:flex-start; padding:40px 32px; gap:26px;
+      transform:translateX(100%); transition:transform 0.4s ease;
+    }
+    nav.primary.open{ transform:translateX(0); }
+    nav.primary a{ font-size:20px; }
+    .menu-toggle{ display:block; }
+  }
+
+  /* ---------- PAGE HERO ---------- */
+  .page-hero{ padding:60px 32px 40px; max-width:var(--maxw); margin:0 auto; }
+  .breadcrumb{ font-family:var(--mono); font-size:11px; letter-spacing:1px; color:var(--tan-muted); margin:0 0 22px; }
+  .breadcrumb a{ color:var(--tan-muted); }
+  .breadcrumb a:hover{ color:var(--brass); }
+  .page-eyebrow{ font-family:var(--mono); font-size:11.5px; letter-spacing:3px; color:var(--brass); text-transform:uppercase; margin:0 0 16px; }
+  .page-title{ font-family:var(--display); font-weight:500; font-size:clamp(30px,4.6vw,52px); line-height:1.08; margin:0 0 18px; max-width:16ch; }
+  .page-sub{ font-size:16px; line-height:1.6; color:var(--tan-muted); max-width:52ch; margin:0; }
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex; flex-wrap:wrap; gap:10px; padding:0 32px 44px; max-width:var(--maxw); margin:0 auto;
+  }
+  .filter-btn{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:1.2px; text-transform:uppercase;
+    padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:transparent;
+    color:var(--tan-muted); cursor:pointer; transition:all 0.25s ease;
+  }
+  .filter-btn:hover{ border-color:var(--brass-dim); color:var(--cream); }
+  .filter-btn.active{ background:var(--brass); border-color:var(--brass); color:var(--bg-deep); }
+
+  /* ---------- GRID ---------- */
+  .catalog-section{ padding:0 32px 120px; max-width:var(--maxw); margin:0 auto; }
+  .product-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:26px 22px; }
+
+  @media (max-width:1040px){ .product-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:760px){ .product-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .product-grid{ grid-template-columns:1fr; } }
+
+  .product-card{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; overflow:hidden;
+    display:flex; flex-direction:column; opacity:0; transform:translateY(16px);
+    transition:opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card.show{ opacity:1; transform:translateY(0); }
+  .product-card.hide{ display:none; }
+  .product-card:hover{ border-color:var(--brass-dim); box-shadow:0 24px 44px -24px rgba(0,0,0,0.6); }
+
+  .product-media{
+    position:relative; aspect-ratio:1/1; overflow:hidden; cursor:grab;
+  }
+  .media-slide{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity 0.5s ease; padding:18%;
+  }
+  .media-slide.active{ opacity:1; }
+  .media-slide svg{ width:100%; height:100%; opacity:0.85; }
+
+  .mv-cognac{ background:linear-gradient(155deg, var(--c-cognac), #7d4a20); }
+  .mv-chocolate{ background:linear-gradient(155deg, var(--c-chocolate), #3c2415); }
+  .mv-oxblood{ background:linear-gradient(155deg, var(--c-oxblood), #4a1a15); }
+  .mv-negro{ background:linear-gradient(155deg, #2b2620, var(--c-negro)); }
+
+  .media-badge{
+    position:absolute; top:12px; left:12px; z-index:2;
+    font-family:var(--mono); font-size:9.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:5px 9px; border-radius:3px;
+  }
+  .badge-stock{ background:var(--brass); color:var(--bg-deep); }
+  .badge-pedido{ background:rgba(27,20,15,0.55); border:1px solid var(--tan-muted); color:var(--cream); backdrop-filter:blur(4px); }
+
+  .media-count{
+    position:absolute; top:12px; right:12px; z-index:2;
+    font-family:var(--mono); font-size:9.5px; color:rgba(241,230,211,0.75);
+    background:rgba(27,20,15,0.45); padding:4px 7px; border-radius:3px;
+  }
+
+  .media-dots{
+    position:absolute; bottom:12px; left:0; right:0; z-index:2;
+    display:flex; justify-content:center; gap:6px;
+  }
+  .media-dot{
+    width:6px; height:6px; border-radius:50%; border:none; padding:0; cursor:pointer;
+    background:rgba(241,230,211,0.35); transition:all 0.25s ease;
+  }
+  .media-dot.active{ background:var(--cream); transform:scale(1.3); }
+
+  .media-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+    width:26px; height:26px; border-radius:50%; border:none;
+    background:rgba(27,20,15,0.4); color:var(--cream); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.25s ease;
+  }
+  .product-media:hover .media-arrow{ opacity:1; }
+  .media-arrow.prev{ left:10px; }
+  .media-arrow.next{ right:10px; }
+  .media-arrow svg{ width:12px; height:12px; }
+
+  .product-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .product-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .product-name{ font-family:var(--display); font-weight:600; font-size:17px; line-height:1.25; margin:0; }
+  .product-price{ font-family:var(--mono); font-size:13px; color:var(--brass); white-space:nowrap; padding-top:2px; }
+
+  .product-desc{ font-size:13px; line-height:1.55; color:var(--tan-muted); margin:0; flex:1; }
+
+  .product-meta{
+    display:flex; flex-wrap:wrap; gap:6px 10px; font-family:var(--mono); font-size:10px;
+    letter-spacing:0.4px; color:var(--tan-muted); border-top:1px solid var(--line); padding-top:10px;
+  }
+  .product-meta span{ display:flex; align-items:center; gap:5px; }
+  .product-meta b{ color:var(--cream); font-weight:500; }
+
+  .product-cta{
+    margin-top:4px; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase;
+    color:var(--brass); border:1px solid var(--brass-dim); border-radius:2px; padding:10px 14px;
+    transition:all 0.25s ease;
+  }
+  .product-cta:hover{ background:var(--brass); color:var(--bg-deep); border-color:var(--brass); }
+  .product-cta svg{ width:11px; height:11px; }
+
+  /* ---------- FOOTER (shared) ---------- */
+  footer{ border-top:1px solid var(--line); padding:56px 32px 34px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+  .footer-tag{ margin-top:16px; font-size:13.5px; color:var(--tan-muted); line-height:1.6; max-width:32ch; }
+  .footer-col h4{ font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--brass); margin:0 0 16px; }
+  .footer-col a, .footer-col p{ display:block; font-size:13.5px; color:var(--tan-muted); margin-bottom:10px; line-height:1.5; }
+  .footer-col a:hover{ color:var(--cream); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center; padding-top:26px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.5px; color:var(--tan-muted);
+  }
+  @media (max-width:760px){
+    .footer-grid{ grid-template-columns:1fr; gap:32px; }
+    .footer-bottom{ flex-direction:column; gap:10px; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="Arise Taller — inicio">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
+        <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+        <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
+        <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
+      </svg>
+      <span class="logo-text">
+        <span class="name">Arise Taller</span>
+        <span class="sub">Cuero · Montevideo</span>
+      </span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary" id="primaryNav">
+      <a href="index.html">Inicio</a>
+      <a href="catalogo.html" class="active">Catálogo</a>
+      <a href="index.html#oficio">Nuestro Oficio</a>
+      <a href="index.html#cuidado">Cuidado del Cuero</a>
+      <a href="index.html#contacto" class="nav-cta">Instagram</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> / Catálogo</p>
+    <p class="page-eyebrow">Catálogo completo</p>
+    <h1 class="page-title">16 piezas, ninguna repetida.</h1>
+    <p class="page-sub">Stock limitado y algunas hechas a pedido. Los precios son de referencia — cada cuero es distinto, así que el tuyo también lo va a ser.</p>
+  </section>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="todos">Todos (16)</button>
+    <button class="filter-btn" data-filter="billeteras">Billeteras</button>
+    <button class="filter-btn" data-filter="carteras">Carteras</button>
+    <button class="filter-btn" data-filter="bolsos">Bolsos</button>
+    <button class="filter-btn" data-filter="posamates">Posa Mates</button>
+  </div>
+
+  <section class="catalog-section">
+    <div class="product-grid" id="productGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="Arise Taller">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
+            <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+            <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
+            <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
+          </svg>
+          <span class="logo-text">
+            <span class="name">Arise Taller</span>
+            <span class="sub">Cuero · Montevideo</span>
+          </span>
+        </a>
+        <p class="footer-tag">Taller de marroquinería artesanal desde 2010. Cueros nobles, trabajados a mano, pensados para durar.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a href="index.html">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="index.html#oficio">Nuestro oficio</a>
+        <a href="index.html#cuidado">Cuidado del cuero</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <p>Montevideo, Uruguay</p>
+        <p>Envíos a todo el país</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Arise Taller</span>
+      <span>Hecho a mano, pieza por pieza</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Mobile menu ----------
+  const menuToggle = document.getElementById('menuToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // ---------- Category icons (line art, stand-ins until real photography) ----------
+  const icons = {
+    billetera: `<svg viewBox="0 0 64 64" fill="none" stroke="#F1E6D3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="20" width="48" height="30" rx="4"/><path d="M8 28h48"/><circle cx="46" cy="35" r="2.4" fill="#F1E6D3" stroke="none"/><path d="M14 20v-4a4 4 0 0 1 4-4h20"/></svg>`,
+    cartera: `<svg viewBox="0 0 64 64" fill="none" stroke="#F1E6D3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26h36l-3 28H17l-3-28z"/><path d="M22 26v-6a10 10 0 0 1 20 0v6"/><circle cx="32" cy="38" r="1.8" fill="#F1E6D3" stroke="none"/></svg>`,
+    bolso: `<svg viewBox="0 0 64 64" fill="none" stroke="#F1E6D3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 30c0-8 8-14 20-14s20 6 20 14v14c0 6-6 10-20 10s-20-4-20-10V30z"/><path d="M32 16V8"/><path d="M18 30h28"/></svg>`,
+    posamate: `<svg viewBox="0 0 64 64" fill="none" stroke="#F1E6D3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="34" r="20"/><path d="M26 26c-2 2-3 5-3 8 0 6 4 10 9 10s9-4 9-10c0-1 0-2-.3-3"/><path d="M35 20l4-5"/><path d="M39 15l3 3-3 3"/></svg>`
+  };
+
+  const leatherLabels = { cognac:'Cognac', chocolate:'Chocolate', oxblood:'Oxblood', negro:'Negro' };
+
+  // ---------- Product data ----------
+  const products = [
+    { cat:'billeteras', icon:'billetera', name:'Billetera Slim', price:1890, sku:'AT-BIL-001', leather:'cognac', alt:'chocolate', stock:true,
+      desc:'La guardás en el bolsillo de atrás y ni la notás — hasta que ves cómo se va oscureciendo.' },
+    { cat:'billeteras', icon:'billetera', name:'Billetera Clásica', price:2150, sku:'AT-BIL-002', leather:'chocolate', alt:'negro', stock:false,
+      desc:'Con lugar de sobra para tarjetas y efectivo, sin perder el perfil bajo que buscás.' },
+    { cat:'billeteras', icon:'billetera', name:'Billetera con Monedero', price:2450, sku:'AT-BIL-003', leather:'oxblood', alt:'cognac', stock:true,
+      desc:'Un broche a presión suma un compartimento extra, para cuando el vuelto también importa.' },
+    { cat:'billeteras', icon:'billetera', name:'Cardholder', price:1590, sku:'AT-BIL-004', leather:'negro', alt:'oxblood', stock:true,
+      desc:'Cuatro tarjetas y algo de efectivo. Cabe en cualquier bolsillo, hasta el más chico.' },
+
+    { cat:'carteras', icon:'cartera', name:'Cartera Mini', price:4200, sku:'AT-CAR-001', leather:'cognac', alt:'negro', stock:false,
+      desc:'La cruzás y te olvidás que la tenés puesta, hasta que alguien te pregunta dónde la conseguiste.' },
+    { cat:'carteras', icon:'cartera', name:'Cartera Bandolera', price:5600, sku:'AT-CAR-002', leather:'chocolate', alt:'cognac', stock:true,
+      desc:'Suma un bolsillo interior para lo que no querés andar buscando entre todo lo demás.' },
+    { cat:'carteras', icon:'cartera', name:'Cartera Estructurada', price:6300, sku:'AT-CAR-003', leather:'oxblood', alt:'chocolate', stock:false,
+      desc:'Mantiene su forma sola, apoyada en cualquier mesa, lista para la próxima salida.' },
+    { cat:'carteras', icon:'cartera', name:'Cartera Tote', price:7100, sku:'AT-CAR-004', leather:'negro', alt:'oxblood', stock:false,
+      desc:'Para el día entero: notebook, cuadernos, lo que sea. El asa la hacemos doble costura.' },
+
+    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette', price:3800, sku:'AT-BAG-001', leather:'cognac', alt:'chocolate', stock:true,
+      desc:'Una sola pieza de cuero, envuelta a mano. Te lo cruzás y salís, no necesitás nada más.' },
+    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette', price:3800, sku:'AT-BAG-002', leather:'chocolate', alt:'negro', stock:false,
+      desc:'El mismo patrón, otro cuero. Cada pieza envejece distinto según el tono que elijas.' },
+    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette Mini', price:3200, sku:'AT-BAG-003', leather:'oxblood', alt:'cognac', stock:true,
+      desc:'La versión chica, para cuando solo necesitás llaves, celular y billetera.' },
+    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette XL', price:4500, sku:'AT-BAG-004', leather:'negro', alt:'oxblood', stock:false,
+      desc:'Más ancho, misma silueta. Para los días que salís con un poco más de todo.' },
+
+    { cat:'posamates', icon:'posamate', name:'Posa Mate Individual', price:890, sku:'AT-MAT-001', leather:'cognac', alt:'chocolate', stock:true,
+      desc:'Base firme y cuero grueso para el mate de todos los días, en tu mesa o en la oficina.' },
+    { cat:'posamates', icon:'posamate', name:'Posa Mate Individual', price:890, sku:'AT-MAT-002', leather:'chocolate', alt:'negro', stock:true,
+      desc:'El mismo modelo, en un tono más oscuro desde el día uno.' },
+    { cat:'posamates', icon:'posamate', name:'Set Posa Mate x2', price:1650, sku:'AT-MAT-003', leather:'oxblood', alt:'cognac', stock:false,
+      desc:'Para cuando el mate se comparte. Vienen los dos con el mismo cuero, cosidos a mano.' },
+    { cat:'posamates', icon:'posamate', name:'Posa Mate con Bolsillo', price:1190, sku:'AT-MAT-004', leather:'negro', alt:'oxblood', stock:true,
+      desc:'Suma un bolsillo lateral para la bombilla, así siempre sabés dónde quedó.' }
+  ];
+
+  const catLabels = { billeteras:'Billetera', carteras:'Cartera', bolsos:'Bolso', posamates:'Posa Mate' };
+
+  function formatPrice(n){
+    return '$U ' + n.toLocaleString('es-UY');
+  }
+
+  function cardHTML(p, idx){
+    const variants = [p.leather, p.alt];
+    const slides = variants.map((v, i) => `
+      <div class="media-slide ${i===0?'active':''}" data-slide="${i}">
+        ${icons[p.icon]}
+      </div>
+    `).join('');
+    const dots = variants.map((v,i) => `<button class="media-dot ${i===0?'active':''}" data-slide="${i}" aria-label="Ver en ${leatherLabels[v]}"></button>`).join('');
+
+    return `
+    <article class="product-card show" data-category="${p.cat}">
+      <div class="product-media mv-${p.leather}" data-idx="${idx}" data-variants="${variants.join(',')}">
+        <span class="media-badge ${p.stock ? 'badge-stock':'badge-pedido'}">${p.stock ? 'En stock' : 'A pedido'}</span>
+        <span class="media-count"><span class="count-current">1</span>/${variants.length}</span>
+        ${slides}
+        <button class="media-arrow prev" aria-label="Anterior" data-idx="${idx}">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="media-arrow next" aria-label="Siguiente" data-idx="${idx}">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="media-dots">${dots}</div>
+      </div>
+      <div class="product-body">
+        <div class="product-top">
+          <h3 class="product-name">${p.name}</h3>
+          <span class="product-price">${formatPrice(p.price)}</span>
+        </div>
+        <p class="product-desc">${p.desc}</p>
+        <div class="product-meta">
+          <span>SKU <b>${p.sku}</b></span>
+          <span>Cuero <b>${leatherLabels[p.leather]}</b></span>
+          <span>Categoría <b>${catLabels[p.cat]}</b></span>
+        </div>
+        <a class="product-cta" href="index.html#contacto">
+          Consultar
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </article>`;
+  }
+
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map((p, i) => cardHTML(p, i)).join('');
+
+  // ---------- Per-card mini slider ----------
+  document.querySelectorAll('.product-media').forEach(media => {
+    let current = 0;
+    const slides = media.querySelectorAll('.media-slide');
+    const dots = media.querySelectorAll('.media-dot');
+    const countEl = media.querySelector('.count-current');
+    const variants = media.dataset.variants.split(',');
+    const total = slides.length;
+
+    function render(){
+      slides.forEach((s,i) => s.classList.toggle('active', i === current));
+      dots.forEach((d,i) => d.classList.toggle('active', i === current));
+      countEl.textContent = current + 1;
+      media.className = media.className.replace(/mv-\w+/, 'mv-' + variants[current]);
+    }
+
+    function go(i){ current = (i + total) % total; render(); }
+
+    media.querySelector('.prev').addEventListener('click', (e) => { e.preventDefault(); go(current - 1); });
+    media.querySelector('.next').addEventListener('click', (e) => { e.preventDefault(); go(current + 1); });
+    dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
+  });
+
+  // ---------- Filters ----------
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.product-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = f === 'todos' || card.dataset.category === f;
+        card.classList.toggle('hide', !match);
+        if (match) requestAnimationFrame(() => card.classList.add('show'));
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
