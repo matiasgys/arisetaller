@@ -85,7 +85,7 @@
     padding:18px 32px;
     max-width:var(--maxw); margin:0 auto;
   }
-  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo{ display:flex; align-items:center; gap:12px; width:150px }
   .logo svg{ width:34px; height:34px; flex-shrink:0; }
   .logo-text{ display:flex; flex-direction:column; line-height:1; }
   .logo-text .name{
@@ -186,7 +186,7 @@
     background:repeating-linear-gradient(var(--cream) 0 3px, transparent 3px 6px);
     opacity:0.55;
   }
-  .swatch-top{ margin-top:26px; }
+  .swatch-top{ margin-top:26px; background: #000000a6; padding: 10px; max-width: 40ch}
   .swatch-leather{
     font-family:var(--mono); font-size:10.5px; letter-spacing:2px;
     text-transform:uppercase; opacity:0.75;
@@ -195,13 +195,13 @@
     font-family:var(--display); font-weight:600; font-size:30px; margin:6px 0 0;
   }
   .swatch-copy{
-    font-size:14.5px; line-height:1.55; max-width:30ch; opacity:0.92;
+    font-size:14.5px; line-height:1.55; max-width:30ch; opacity:0.92; background: #000000a6; padding: 10px;
   }
   .swatch-hex{
     font-family:var(--mono); font-size:11px; letter-spacing:1px; opacity:0.6;
   }
 
-  .sw-cognac{ background:linear-gradient(160deg, var(--c-cognac), #7d4a20); color:#2B1607; }
+  .sw-cognac{ background:linear-gradient(160deg, var(--c-cognac), #7d4a20); color:var(--cream); }
   .sw-chocolate{ background:linear-gradient(160deg, var(--c-chocolate), #3c2415); color:var(--cream); }
   .sw-oxblood{ background:linear-gradient(160deg, var(--c-oxblood), #4a1a15); color:var(--cream); }
   .sw-negro{ background:linear-gradient(160deg, #2b2620, var(--c-negro)); color:var(--cream); }
@@ -209,6 +209,12 @@
     .swatch-controls{
     display:flex; flex-direction:column; align-items:center; gap:22px;
   }
+  .hero .sw-cognac {background-image: url(images/bg1.png); background-position: center; background-size: cover;}
+  .hero .sw-chocolate {background-image: url(images/bg2.png); background-position: center; background-size: cover;}
+  .hero .sw-oxblood {background-image: url(images/fondo-1.jpg); background-position: center; background-size: cover;}
+  .hero .sw-negro {background-image: url(images/fondo-2.jpg); background-position: center; background-size: cover;}
+  .hero .sw-accesorios {background-image: url(images/fondo-3.jpg); background-position: center; background-size: cover;}
+
   .swatch-dots{ display:flex; flex-direction:column; gap:12px; }
   .swatch-dot{
     width:9px; height:9px; border-radius:50%; border:1px solid var(--tan-muted);
@@ -311,10 +317,10 @@
   .cat-card:hover .cat-link svg{ transform:translateX(4px); }
 
   .sw-moda{background-image: url("images/chale.png"); background-position: center; background-size: cover;}
-.sw-billeteras{background-image: url("images/bille-male-09.png"); background-position: center; background-size: cover;}
-.sw-carteras{background-image: url("images/CB-02.jpg"); background-position: center; background-size: cover;}
-.sw-mates{background-image: url("images/1785352170891.png"); background-position: center; background-size: cover;}
-.sw-accesorios{background-image: url("images/pul.png"); background-position: center; background-size: cover;}
+  .sw-billeteras{background-image: url("images/bille-male-09.png"); background-position: center; background-size: cover;}
+  .sw-carteras{background-image: url("images/CB-02.jpg"); background-position: center; background-size: cover;}
+  .sw-mates{background-image: url("images/1785352170891.png"); background-position: center; background-size: cover;}
+  .sw-accesorios{background-image: url("images/pul.png"); background-position: center; background-size: cover;}
 
   #oficio {background-image: url(09.jpg); background-position: center; background-size: cover; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken;}
 
@@ -391,13 +397,14 @@
 
   /* ---------- MOBILE NAV ---------- */
   @media (max-width:900px){
+    .logo {width: 100px;}
     nav.primary{
       position:fixed; top:71px; left:0; right:0; bottom:0;
       background:var(--bg-deep); flex-direction:column; align-items:flex-start;
       padding:40px 32px; gap:26px;
       transform:translateX(100%); transition:transform 0.4s ease;
     }
-    nav.primary.open{ transform:translateX(0); }
+    nav.primary.open{ transform:translateX(0); background: #171105f5; height: 300px; margin-top: 30px; }
     nav.primary a{ font-size:20px; }
     .menu-toggle{ display:block; }
     .hero{ padding-top:48px; }
@@ -419,7 +426,7 @@
         <span class="name">Arise Taller</span>
         <span class="sub">Cuero · Montevideo</span>
       </span-->
-      <img src="images/loguito.png" width="150px">
+      <img src="images/loguito.png" >
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -440,17 +447,18 @@
   <section class="hero" id="inicio">
     <div class="swatchbook">
       <div class="swatch-stage" id="swatchStage">
+        <div><img src="images/trans.png"></div>
         <article class="swatch-card sw-cognac active" data-i="0">
           <div class="swatch-top">
-            <p class="swatch-leather">Cuero vegetal · 01</p>
-            <h3 class="swatch-name">Cognac</h3>
+            <p class="swatch-leather">Cuero real · 01</p>
+            <h3 class="swatch-name">Lo llevás todos los días.</h3>
           </div>
           <p class="swatch-copy">Lo elegís claro. Vos lo vas a oscurecer, sol tras sol, uso tras uso.</p>
-          <p class="swatch-hex">#A9652E</p>
+          <p class="swatch-hex"><a href="http://decano.com" target="_blank">Decano</a></p>
         </article>
         <article class="swatch-card sw-chocolate" data-i="1">
           <div class="swatch-top">
-            <p class="swatch-leather">Cuero vegetal · 02</p>
+            <p class="swatch-leather">Menos pretensión, más identidad. · 02</p>
             <h3 class="swatch-name">Chocolate</h3>
           </div>
           <p class="swatch-copy">Lo llevás todos los días. Con cada roce, ganás una marca que es solo tuya.</p>
@@ -458,7 +466,7 @@
         </article>
         <article class="swatch-card sw-oxblood" data-i="2">
           <div class="swatch-top">
-            <p class="swatch-leather">Cuero vegetal · 03</p>
+            <p class="swatch-leather">Articulos atemporales · 03</p>
             <h3 class="swatch-name">Oxblood</h3>
           </div>
           <p class="swatch-copy">Lo elegís intenso. Con los años, vos lo hacés más profundo todavía.</p>
@@ -466,10 +474,10 @@
         </article>
         <article class="swatch-card sw-negro" data-i="3">
           <div class="swatch-top">
-            <p class="swatch-leather">Cuero vegetal · 04</p>
+            <p class="swatch-leather">Hecho a mano · 04</p>
             <h3 class="swatch-name">Negro</h3>
           </div>
-          <p class="swatch-copy">Lo elegís firme. Sabés que ninguna otra pieza va a ser igual a la tuya.</p>
+          <p class="swatch-copy">Todos los productos son tatalmente hechos a mano de proncipio a fin. Lo elegís firme. Sabés que ninguna otra pieza va a ser igual a la tuya.</p>
           <p class="swatch-hex">#211C17</p>
         </article>
       </div>
@@ -492,7 +500,7 @@
   <section class="catalog" id="catalogo">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="section-eyebrow">Catálogo</p>
+        <p class="section-eyebrow">Destacados</p>
         <h2 class="section-title">Lo que vas a llevar con vos.</h2>
       </div>
       <div class="catalog-grid reveal">

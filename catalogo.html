@@ -59,7 +59,7 @@
   /* ---------- HEADER (shared) ---------- */
   header{
     position:sticky; top:0; z-index:100;
-    background:rgba(27,20,15,0.86); backdrop-filter:blur(10px);
+    background:rgba(17, 11, 6, 0.86); backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .header-inner{
@@ -67,6 +67,7 @@
     padding:18px 32px; max-width:var(--maxw); margin:0 auto;
   }
   .logo{ display:flex; align-items:center; gap:12px; }
+  .logo {width: 150px;}
   .logo svg{ width:34px; height:34px; flex-shrink:0; }
   .logo-text{ display:flex; flex-direction:column; line-height:1; }
   .logo-text .name{ font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:0.5px; color:var(--cream); }
@@ -94,6 +95,7 @@
   .menu-toggle span:nth-child(3){ top:22px; }
 
   @media (max-width:900px){
+    .logo {width: 100px;}
     nav.primary{
       position:fixed; top:71px; left:0; right:0; bottom:0; background:var(--bg-deep);
       flex-direction:column; align-items:flex-start; padding:40px 32px; gap:26px;
@@ -224,7 +226,7 @@
   .product-cta svg{ width:11px; height:11px; }
 
   /* ---------- FOOTER (shared) ---------- */
-  footer{ border-top:1px solid var(--line); padding:56px 32px 34px; }
+  footer{ border-top:1px solid var(--line); padding:56px 32px 34px; background:rgba(17, 11, 6, 0.86) }
   .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:48px; }
   .footer-tag{ margin-top:16px; font-size:13.5px; color:var(--tan-muted); line-height:1.6; max-width:32ch; }
   .footer-col h4{ font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--brass); margin:0 0 16px; }
@@ -314,7 +316,7 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo" aria-label="Arise Taller — inicio">
-      <svg viewBox="0 0 40 40" fill="none">
+      <!--svg viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
         <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
         <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
@@ -323,7 +325,8 @@
       <span class="logo-text">
         <span class="name">Arise Taller</span>
         <span class="sub">Cuero · Montevideo</span>
-      </span>
+      </span-->
+      <img src="images/loguito.png" >
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -343,7 +346,8 @@
   <section class="page-hero">
     <p class="breadcrumb"><a href="index.html">Inicio</a> / Catálogo</p>
     <p class="page-eyebrow">Catálogo completo</p>
-    <h1 class="page-title">16 piezas, ninguna repetida.</h1>
+    <h1 class="page-title">Piezas originales, no hay dos iguales.</h1>
+    <!--h1 class="page-title">16 piezas, ninguna repetida.</h1-->
     <p class="page-sub">Stock limitado y algunas hechas a pedido. Los precios son de referencia — cada cuero es distinto, así que el tuyo también lo va a ser.</p>
   </section>
 
@@ -385,18 +389,18 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo" aria-label="Arise Taller">
-          <svg viewBox="0 0 40 40" fill="none">
+          <!--svg viewBox="0 0 40 40" fill="none">
             <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
             <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
             <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
             <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
-          </svg>
+          </svg-->
           <span class="logo-text">
             <span class="name">Arise Taller</span>
-            <span class="sub">Cuero · Montevideo</span>
+            <span class="sub">Artesania en Cuero</span>
           </span>
         </a>
-        <p class="footer-tag">Taller de marroquinería artesanal desde 2010. Cueros nobles, trabajados a mano, pensados para durar.</p>
+        <p class="footer-tag">Taller de marroquinería artesanal. Cueros nobles, trabajados a mano, pensados para durar.</p>
       </div>
       <div class="footer-col">
         <h4>Navegación</h4>
@@ -476,7 +480,6 @@
 
     { cat:'bolsos', icon:'bolso', name:'Bolso Baguette XL', price:4500, sku:'AT-BAG-004', leather:'negro', alt:'oxblood', stock:false,
       desc:'Más ancho, misma silueta. Para los días que salís con un poco más de todo.' },
-
 
     { cat:'posamates', icon:'posamate', name:'Posa Mate Individual', price:890, sku:'AT-MAT-001', leather:'cognac', alt:'chocolate', stock:true,
       desc:'Base firme y cuero grueso para el mate de todos los días, en tu mesa o en la oficina.' },
