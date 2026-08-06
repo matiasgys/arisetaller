@@ -143,7 +143,7 @@
   .product-card:hover{ border-color:var(--brass-dim); box-shadow:0 24px 44px -24px rgba(0,0,0,0.6); }
 
   .product-media{
-    position:relative; aspect-ratio:1/1; overflow:hidden; cursor:grab;
+    position:relative; aspect-ratio:1/1; overflow:hidden; cursor:zoom-in;
   }
   .media-slide{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
@@ -151,6 +151,14 @@
   }
   .media-slide.active{ opacity:1; }
   .media-slide svg{ width:100%; height:100%; opacity:0.85; }
+  .media-slide.has-image{ padding:0; }
+  .media-slide img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .media-fallback{
+    display:none; align-items:center; justify-content:center; width:100%; height:100%; padding:18%;
+    box-sizing:border-box;
+  }
 
   .mv-cognac{ background:linear-gradient(155deg, var(--c-cognac), #7d4a20); }
   .mv-chocolate{ background:linear-gradient(155deg, var(--c-chocolate), #3c2415); }
@@ -230,6 +238,75 @@
     .footer-grid{ grid-template-columns:1fr; gap:32px; }
     .footer-bottom{ flex-direction:column; gap:10px; align-items:flex-start; }
   }
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(15,10,7,0.94); backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden; transition:opacity 0.3s ease;
+    padding:32px;
+  }
+  .lightbox.open{ opacity:1; visibility:visible; }
+
+  .lightbox-stage{
+    position:relative; width:min(560px, 88vw); aspect-ratio:1/1;
+    border-radius:6px; overflow:hidden;
+    transform:scale(0.96); transition:transform 0.3s ease;
+    box-shadow:0 40px 90px -20px rgba(0,0,0,0.7);
+  }
+  .lightbox.open .lightbox-stage{ transform:scale(1); }
+
+  .lightbox-slide{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity 0.4s ease;
+  }
+  .lightbox-slide.active{ opacity:1; }
+  .lightbox-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .lightbox-slide .media-fallback{  padding:20%; } /*{ display:flex; padding:20%; }*/
+
+  .lightbox-info{
+    position:absolute; left:0; right:0; bottom:0; padding:20px 24px;
+    background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+    display:flex; justify-content:space-between; align-items:flex-end; gap:12px;
+  }
+  .lightbox-name{ font-family:var(--display); font-weight:600; font-size:18px; color:var(--cream); margin:0 0 4px; }
+  .lightbox-leather{ font-family:var(--mono); font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--brass); margin:0; }
+  .lightbox-price{ font-family:var(--mono); font-size:14px; color:var(--cream); white-space:nowrap; }
+
+  .lightbox-close{
+    position:absolute; top:24px; right:28px; z-index:1001;
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(27,20,15,0.5); color:var(--cream); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;
+  }
+  .lightbox-close:hover{ border-color:var(--brass); color:var(--brass); }
+
+  .lightbox-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:1001;
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(27,20,15,0.5); color:var(--cream); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;
+  }
+  .lightbox-arrow:hover{ border-color:var(--brass); color:var(--brass); }
+  .lightbox-arrow.prev{ left:max(16px, calc(50% - min(280px,44vw) - 68px)); }
+  .lightbox-arrow.next{ right:max(16px, calc(50% - min(280px,44vw) - 68px)); }
+  .lightbox-arrow svg{ width:16px; height:16px; }
+
+  .lightbox-dots{
+    position:absolute; bottom:-30px; left:0; right:0; display:flex; justify-content:center; gap:7px;
+  }
+  .lightbox-dot{
+    width:7px; height:7px; border-radius:50%; border:1px solid var(--tan-muted); background:transparent;
+    padding:0; cursor:pointer; transition:all 0.25s ease;
+  }
+  .lightbox-dot.active{ background:var(--brass); border-color:var(--brass); }
+
+  @media (max-width:600px){
+    .lightbox-arrow.prev{ left:8px; }
+    .lightbox-arrow.next{ right:8px; }
+    .lightbox-arrow{ width:36px; height:36px; }
+  }
+
 </style>
 </head>
 <body>
@@ -256,7 +333,7 @@
       <a href="catalogo.html" class="active">Catálogo</a>
       <a href="index.html#oficio">Nuestro Oficio</a>
       <a href="index.html#cuidado">Cuidado del Cuero</a>
-      <a href="index.html#contacto" class="nav-cta">Instagram</a>
+      <a href="https://www.instagram.com/arisetaller/" class="nav-cta" target="_blank">Instagram</a>
     </nav>
   </div>
 </header>
@@ -271,11 +348,12 @@
   </section>
 
   <div class="filters" id="filters">
-    <button class="filter-btn active" data-filter="todos">Todos (16)</button>
+    <button class="filter-btn active" data-filter="todos">Todos</button>
     <button class="filter-btn" data-filter="billeteras">Billeteras</button>
     <button class="filter-btn" data-filter="carteras">Carteras</button>
     <button class="filter-btn" data-filter="bolsos">Bolsos</button>
     <button class="filter-btn" data-filter="posamates">Posa Mates</button>
+    <button class="filter-btn" data-filter="varios">Varios</button>
   </div>
 
   <section class="catalog-section">
@@ -285,6 +363,22 @@
   </section>
 
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Imagen ampliada del producto">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Cuero anterior">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="lightbox-stage" id="lightboxStage">
+    <!-- slides injected by JS -->
+    <div class="lightbox-dots" id="lightboxDots"></div>
+  </div>
+  <button class="lightbox-arrow next" id="lightboxNext" aria-label="Cuero siguiente">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
 
 <footer>
   <div class="wrap">
@@ -346,44 +440,58 @@
 
   // ---------- Product data ----------
   const products = [
-    { cat:'billeteras', icon:'billetera', name:'Billetera Slim', price:1890, sku:'AT-BIL-001', leather:'cognac', alt:'chocolate', stock:true,
-      desc:'La guardás en el bolsillo de atrás y ni la notás — hasta que ves cómo se va oscureciendo.' },
-    { cat:'billeteras', icon:'billetera', name:'Billetera Clásica', price:2150, sku:'AT-BIL-002', leather:'chocolate', alt:'negro', stock:false,
-      desc:'Con lugar de sobra para tarjetas y efectivo, sin perder el perfil bajo que buscás.' },
-    { cat:'billeteras', icon:'billetera', name:'Billetera con Monedero', price:2450, sku:'AT-BIL-003', leather:'oxblood', alt:'cognac', stock:true,
-      desc:'Un broche a presión suma un compartimento extra, para cuando el vuelto también importa.' },
-    { cat:'billeteras', icon:'billetera', name:'Cardholder', price:1590, sku:'AT-BIL-004', leather:'negro', alt:'oxblood', stock:true,
-      desc:'Cuatro tarjetas y algo de efectivo. Cabe en cualquier bolsillo, hasta el más chico.' },
+    { cat:'carteras', icon:'billetera', name:'Cartera Baguette', price:3000, sku:'CA-03', leather:'cognac', alt:'Cartera Baguette', stock:false,
+      images:['img/ca-03.jpg','img/ca-03-02.jpg','img/ca-03-02.jpg'], desc:'La guardás en el bolsillo de atrás y ni la notás — hasta que ves cómo se va oscureciendo.' },
 
-    { cat:'carteras', icon:'cartera', name:'Cartera Mini', price:4200, sku:'AT-CAR-001', leather:'cognac', alt:'negro', stock:false,
-      desc:'La cruzás y te olvidás que la tenés puesta, hasta que alguien te pregunta dónde la conseguiste.' },
-    { cat:'carteras', icon:'cartera', name:'Cartera Bandolera', price:5600, sku:'AT-CAR-002', leather:'chocolate', alt:'cognac', stock:true,
-      desc:'Suma un bolsillo interior para lo que no querés andar buscando entre todo lo demás.' },
-    { cat:'carteras', icon:'cartera', name:'Cartera Estructurada', price:6300, sku:'AT-CAR-003', leather:'oxblood', alt:'chocolate', stock:false,
-      desc:'Mantiene su forma sola, apoyada en cualquier mesa, lista para la próxima salida.' },
-    { cat:'carteras', icon:'cartera', name:'Cartera Tote', price:7100, sku:'AT-CAR-004', leather:'negro', alt:'oxblood', stock:false,
-      desc:'Para el día entero: notebook, cuadernos, lo que sea. El asa la hacemos doble costura.' },
+    { cat:'carteras', icon:'billetera', name:'Cartera Espiga', price:2800, sku:'CA-09', leather:'chocolate', alt:'Cartera Espiga', stock:false, images:['img/ca-09.jpg','img/ca-09-01.jpg'], desc:'Con lugar de sobra para tarjetas y efectivo, sin perder el perfil bajo que buscás.' },
 
-    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette', price:3800, sku:'AT-BAG-001', leather:'cognac', alt:'chocolate', stock:true,
-      desc:'Una sola pieza de cuero, envuelta a mano. Te lo cruzás y salís, no necesitás nada más.' },
-    { cat:'bolsos', icon:'bolso', name:'Bolso Baguette', price:3800, sku:'AT-BAG-002', leather:'chocolate', alt:'negro', stock:false,
-      desc:'El mismo patrón, otro cuero. Cada pieza envejece distinto según el tono que elijas.' },
+    { cat:'carteras', icon:'billetera', name:'Cartera Flor', price:3600, sku:'CA-10', leather:'oxblood', alt:'Cartera Flor', stock:true,
+      images:['img/ca-10.jpg','img/ca-10-01.jpg'], desc:'Un broche a presión suma un compartimento extra, para cuando el vuelto también importa.' },
+
+    { cat:'carteras', icon:'billetera', name:'ToteBag', price:3500, sku:'TO-02', leather:'negro', alt:'ToteBag', stock:true, 
+      images:['img/to-02.jpg','img/to-02-01.jpg'], desc:'Cuatro tarjetas y algo de efectivo. Cabe en cualquier bolsillo, hasta el más chico.' },
+
+
+    { cat:'carteras', icon:'cartera', name:'Cartera Cris', price:3000, sku:'CA-11', leather:'cognac', alt:'negro', stock:false,
+      images:['img/ca-11.jpg','img/ca-11-01.jpg'], desc:'La cruzás y te olvidás que la tenés puesta, hasta que alguien te pregunta dónde la conseguiste.' },
+
+    { cat:'billeteras', icon:'cartera', name:'Tarjetero Vert', price:900, sku:'TA-09', leather:'chocolate', alt:'Tarjetero Vert', stock:true,
+      images:['img/ta-09.jpg','img/ta-09-01.jpg'], desc:'5 reparticiones. En varios colores y combinaciones, algunos en stock otros por pedido.' },
+
+    { cat:'billeteras', icon:'cartera', name:'Tarjetero Male', price:1100, sku:'TA-08', leather:'oxblood', alt:'Tarjetero Male', stock:true,
+      images:['img/ta-08.jpg','img/ta-08-01.jpg'], desc:'En varios colores y combinaciones, algunos en stock otros por pedido.' },
+
+    { cat:'billeteras', icon:'cartera', name:'Tarjetero Bifold', price:1200, sku:'TA-07', leather:'negro', alt:'Tarjetero Bifold', stock:true,
+      images:['img/ta-07.jpg','img/ta-07-01.jpg'], desc:'Para el día entero: notebook, cuadernos, lo que sea. El asa la hacemos doble costura.' },
+
+
+    { cat:'varios', icon:'bolso', name:'Porta Cuchillos', price:3500, sku:'PC-01', leather:'cognac', alt:'varios', stock:false,
+      images:['img/pc-01.jpg','img/pc-01-01.jpg'], desc:'Una sola pieza de cuero, envuelta a mano. Te lo cruzás y salís, no necesitás nada más.' },
+
+    { cat:'posamates', icon:'bolso', name:'Posa Mates', price:450, sku:'PM-01', leather:'chocolate', alt:'posamates', stock:false,
+      images:['img/pm-01.jpg','img/pm-01-01.jpg'], desc:'El mismo patrón, otro cuero. Cada pieza envejece distinto según el tono que elijas.' },
+
     { cat:'bolsos', icon:'bolso', name:'Bolso Baguette Mini', price:3200, sku:'AT-BAG-003', leather:'oxblood', alt:'cognac', stock:true,
       desc:'La versión chica, para cuando solo necesitás llaves, celular y billetera.' },
+
     { cat:'bolsos', icon:'bolso', name:'Bolso Baguette XL', price:4500, sku:'AT-BAG-004', leather:'negro', alt:'oxblood', stock:false,
       desc:'Más ancho, misma silueta. Para los días que salís con un poco más de todo.' },
 
+
     { cat:'posamates', icon:'posamate', name:'Posa Mate Individual', price:890, sku:'AT-MAT-001', leather:'cognac', alt:'chocolate', stock:true,
       desc:'Base firme y cuero grueso para el mate de todos los días, en tu mesa o en la oficina.' },
+
     { cat:'posamates', icon:'posamate', name:'Posa Mate Individual', price:890, sku:'AT-MAT-002', leather:'chocolate', alt:'negro', stock:true,
       desc:'El mismo modelo, en un tono más oscuro desde el día uno.' },
+
     { cat:'posamates', icon:'posamate', name:'Set Posa Mate x2', price:1650, sku:'AT-MAT-003', leather:'oxblood', alt:'cognac', stock:false,
       desc:'Para cuando el mate se comparte. Vienen los dos con el mismo cuero, cosidos a mano.' },
+
     { cat:'posamates', icon:'posamate', name:'Posa Mate con Bolsillo', price:1190, sku:'AT-MAT-004', leather:'negro', alt:'oxblood', stock:true,
       desc:'Suma un bolsillo lateral para la bombilla, así siempre sabés dónde quedó.' }
   ];
 
-  const catLabels = { billeteras:'Billetera', carteras:'Cartera', bolsos:'Bolso', posamates:'Posa Mate' };
+  const catLabels = { billeteras:'Billetera', carteras:'Cartera', bolsos:'Bolso', posamates:'Posa Mate', varios:'Varios' };
 
   function formatPrice(n){
     return '$U ' + n.toLocaleString('es-UY');
@@ -391,11 +499,18 @@
 
   function cardHTML(p, idx){
     const variants = [p.leather, p.alt];
-    const slides = variants.map((v, i) => `
-      <div class="media-slide ${i===0?'active':''}" data-slide="${i}">
-        ${icons[p.icon]}
-      </div>
-    `).join('');
+    const slides = variants.map((v, i) => {
+      const imgSrc = p.images && p.images[i];
+      const media = imgSrc
+        ? `<img src="${imgSrc}" alt="${p.name} — cuero ${leatherLabels[v]}" loading="lazy"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+           <div class="media-fallback">${icons[p.icon]}</div>`
+        : icons[p.icon];
+      return `
+      <div class="media-slide ${i===0?'active':''} ${imgSrc?'has-image':''}" data-slide="${i}">
+        ${media}
+      </div>`;
+    }).join('');
     const dots = variants.map((v,i) => `<button class="media-dot ${i===0?'active':''}" data-slide="${i}" aria-label="Ver en ${leatherLabels[v]}"></button>`).join('');
 
     return `
@@ -420,10 +535,10 @@
         <p class="product-desc">${p.desc}</p>
         <div class="product-meta">
           <span>SKU <b>${p.sku}</b></span>
-          <span>Cuero <b>${leatherLabels[p.leather]}</b></span>
+          <!--span>Cuero <b>${leatherLabels[p.leather]}</b></span-->
           <span>Categoría <b>${catLabels[p.cat]}</b></span>
         </div>
-        <a class="product-cta" href="index.html#contacto">
+        <a class="product-cta" href="https://app.netlify.com/projects/arise-taller/configuration/general" target=_blank>
           Consultar
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -442,6 +557,7 @@
     const countEl = media.querySelector('.count-current');
     const variants = media.dataset.variants.split(',');
     const total = slides.length;
+    const idx = Number(media.dataset.idx);
 
     function render(){
       slides.forEach((s,i) => s.classList.toggle('active', i === current));
@@ -452,9 +568,86 @@
 
     function go(i){ current = (i + total) % total; render(); }
 
-    media.querySelector('.prev').addEventListener('click', (e) => { e.preventDefault(); go(current - 1); });
-    media.querySelector('.next').addEventListener('click', (e) => { e.preventDefault(); go(current + 1); });
-    dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
+    media.querySelector('.prev').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); go(current - 1); });
+    media.querySelector('.next').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); go(current + 1); });
+    dots.forEach((d,i) => d.addEventListener('click', (e) => { e.stopPropagation(); go(i); }));
+
+    // Click on the photo itself opens the lightbox, starting on the variant currently shown
+    media.addEventListener('click', () => openLightbox(idx, current));
+  });
+
+  // ---------- Lightbox ----------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxStage = document.getElementById('lightboxStage');
+  const lightboxDots = document.getElementById('lightboxDots');
+  let lbIndex = 0, lbProduct = null, lbTrigger = null;
+
+  function lightboxSlideHTML(p, v, i){
+    const imgSrc = p.images && p.images[i];
+    const media = imgSrc
+      ? `<img src="${imgSrc}" alt="${p.name} — cuero ${leatherLabels[v]}">
+         <div class="media-fallback">${icons[p.icon]}</div>`
+      : `<div class="media-fallback" style="display:flex;">${icons[p.icon]}</div>`;
+    return `<div class="lightbox-slide mv-${v} ${i===0?'active':''}" data-i="${i}">${media}</div>`;
+  }
+
+  function buildLightbox(p){
+    const variants = [p.leather, p.alt];
+    const slides = variants.map((v,i) => lightboxSlideHTML(p, v, i)).join('');
+    lightboxStage.innerHTML = slides + `
+      <div class="lightbox-info">
+        <div>
+          <p class="lightbox-name">${p.name}</p>
+          <p class="lightbox-leather">Cuero ${leatherLabels[variants[0]]}</p>
+        </div>
+        <span class="lightbox-price">${formatPrice(p.price)}</span>
+      </div>
+      <div class="lightbox-dots" id="lightboxDots"></div>`;
+    const dotsWrap = lightboxStage.querySelector('#lightboxDots');
+    variants.forEach((v,i) => {
+      const dot = document.createElement('button');
+      dot.className = 'lightbox-dot' + (i===0 ? ' active':'');
+      dot.setAttribute('aria-label', 'Ver en ' + leatherLabels[v]);
+      dot.addEventListener('click', () => lbGo(i));
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function lbGo(i){
+    const variants = [lbProduct.leather, lbProduct.alt];
+    lbIndex = (i + variants.length) % variants.length;
+    lightboxStage.querySelectorAll('.lightbox-slide').forEach((s,j) => s.classList.toggle('active', j === lbIndex));
+    lightboxStage.querySelectorAll('.lightbox-dot').forEach((d,j) => d.classList.toggle('active', j === lbIndex));
+    lightboxStage.querySelector('.lightbox-leather').textContent = 'Cuero ' + leatherLabels[variants[lbIndex]];
+  }
+
+  function openLightbox(productIdx, startIndex){
+    lbProduct = products[productIdx];
+    buildLightbox(lbProduct);
+    lbGo(startIndex || 0);
+    lbTrigger = document.activeElement;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lightboxClose').focus();
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lbTrigger) lbTrigger.focus();
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => lbGo(lbIndex - 1));
+  document.getElementById('lightboxNext').addEventListener('click', () => lbGo(lbIndex + 1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbGo(lbIndex - 1);
+    if (e.key === 'ArrowRight') lbGo(lbIndex + 1);
   });
 
   // ---------- Filters ----------
