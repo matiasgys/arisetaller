@@ -187,7 +187,7 @@
     background:repeating-linear-gradient(var(--cream) 0 3px, transparent 3px 6px);
     opacity:0.55;
   }*/
-  .swatch-top{ margin-top:26px; background: #000000a6; padding: 10px; max-width: 35ch}
+  .swatch-top{ margin-top:26px; background: #000000d9; padding: 10px; max-width: 35ch}
   .swatch-leather{
     font-family:var(--mono); font-size:10.5px; letter-spacing:2px;
     text-transform:uppercase; opacity:0.75;
@@ -210,11 +210,12 @@
     .swatch-controls{
     display:flex; flex-direction:column; align-items:center; gap:22px;
   }
-  .hero .sw-cognac {background-image: url(images/bg1.png); background-position: 0px 0px; background-size: cover;}
-  .hero .sw-chocolate {background-image: url(images/bg3.png); background-position: center; background-size: cover;}
-  .hero .sw-oxblood {background-image: url(images/fondo-1.jpg); background-position: center; background-size: cover;}
-  .hero .sw-negro {background-image: url(images/fondo-2.jpg); background-position: center; background-size: cover;}
-  .hero .sw-accesorios {background-image: url(images/fondo-3.jpg); background-position: center; background-size: cover;}
+  
+  .hero .sw-chocolate {background-image: url(img/taller.jpg); background-position: center; background-size: cover;}
+  .hero .sw-oxblood {background-image: url(images/bg-05.jpg); background-position: 0px 730px; background-size: 130%;}
+  .hero .sw-negro {background-image: url(images/bg-2.png); background-position: center; background-size: cover;}
+  .hero .sw-cognac {background-image: url(images/bg-4.jpg); background-position: center; background-size: cover;}
+  /*.hero .sw-accesorios {background-image: url(images/fondo-3.jpg); background-position: center; background-size: cover;}*/
 
   .swatch-dots{ display:flex; flex-direction:column; gap:12px; }
   .swatch-dot{
@@ -455,36 +456,37 @@
         <article class="swatch-card sw-chocolate" data-i="1">
           <div class="swatch-top">
             <!--p class="swatch-leather">Articulos atemporales · 02</p-->
-            <h3 class="swatch-name">Marroquinería artesanal.<br>Hecha a mano en Uruguay.</h3>
+            <h3 class="swatch-name">Marroquinería artesanal.</h3>
+            <p class="swatch-leather">Piezas confeccionadas a mano en Uruguay con cuero genuino y atención a cada detalle.</p>
           </div>
-          <!--p class="swatch-copy">Lo llevás todos los días. Con cada roce, ganás una marca que es solo tuya.</p>
+          <!--p class="swatch-copy"></p>
           <p class="swatch-hex">#5A3825</p-->
         </article>
 
         <article class="swatch-card sw-oxblood" data-i="2">
-          <div class="swatch-top">
-            <!--p class="swatch-leather">Cuero real · 03</p-->
-            <h3 class="swatch-name">Diseño que perdura.<br>Cuero genuino. Calidad artesanal.</h3>
+          <div class="swatch-top">            
+            <h3 class="swatch-name">Diseño que perdura.</h3>
+            <p class="swatch-leather">Carteras y accesorios creados para acompañarte durante muchos años.</p>
           </div>
-          <!--p class="swatch-copy">Lo elegís intenso. Con los años, vos lo hacés más profundo todavía.</p>
+          <!--p class="swatch-copy"></p>
           <p class="swatch-hex">#6E2A22</p-->
         </article>
 
         <article class="swatch-card sw-negro" data-i="3">
           <div class="swatch-top">
-            <!--p class="swatch-leather">Hecho a mano · 04</p-->
-            <h3 class="swatch-name">Elegí un accesorio<br>que te acompañe durante años.</h3>
+            <h3 class="swatch-name">Elegí calidad, todos los días.</h3>
+            <p class="swatch-leather">Accesorios que combinan diseño, funcionalidad y el carácter único del cuero.</p>
           </div>
-          <!--p class="swatch-copy">Todos los productos son tatalmente hechos a mano de proncipio a fin. Lo elegís firme. Sabés que ninguna otra pieza va a ser igual a la tuya.</p>
+          <!--p class="swatch-copy"></p>
           <p class="swatch-hex">#211C17</p-->
         </article>
 
         <article class="swatch-card sw-cognac active" data-i="0">
           <div class="swatch-top">
-            <!--p class="swatch-leather">Menos pretensión, más identidad · 01</p-->
-            <h3 class="swatch-name">Cada detalle cuenta.<br>Descubrí la colección Arise.</h3>
+            <h3 class="swatch-name">Hecho para durar.</h3>
+            <p class="swatch-leather">Cada costura, cada remache y cada terminación reflejan el trabajo artesanal de Arise.</p>
           </div>
-          <!--p class="swatch-copy">Lo elegís claro. Vos lo vas a oscurecer, sol tras sol, uso tras uso.</p>
+          <!--p class="swatch-copy"></p>
           <p class="swatch-hex"><a href="http://decano.com" target="_blank">Decano</a></p-->
         </article>
       </div>
@@ -515,7 +517,7 @@
           <div class="cat-swatch sw-billeteras"><!--span>Chocolate</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Billeteras</h3>
-            <p class="cat-desc">Aca vas a encontrar diferentes modelos, colores y texturas de billeteras, tarjeteros simples, tarjeteros bifold, monederos... </p>
+            <p class="cat-desc">Aca vas a encontrar diferentes modelos, colores y texturas de billeteras, tarjeteros, monederos... </p>
             <a href="catalogo.html?filtro=billeteras" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
@@ -547,7 +549,7 @@
           <div class="cat-swatch sw-accesorios"><!--span>Cognac</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Accsesorios</h3>
-            <p class="cat-desc">Lo que no encontras en las otras categorias esta aca por ejemplo llaveros, estuche para cuchillos, despojadores erc.</p>
+            <p class="cat-desc">Lo que no encontras en las otras categorias esta aca por ejemplo llaveros, estuche para cuchillos, despojadores etc.</p>
             <a href="catalogo.html" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
