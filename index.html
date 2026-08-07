@@ -85,7 +85,7 @@
     padding:18px 32px;
     max-width:var(--maxw); margin:0 auto;
   }
-  .logo{ display:flex; align-items:center; gap:12px; width:150px }
+  .logo{ display:flex; align-items:center; gap:12px; width:100px }
   .logo svg{ width:34px; height:34px; flex-shrink:0; }
   .logo-text{ display:flex; flex-direction:column; line-height:1; }
   .logo-text .name{
@@ -210,7 +210,7 @@
     .swatch-controls{
     display:flex; flex-direction:column; align-items:center; gap:22px;
   }
-  .hero .sw-cognac {background-image: url(images/bg1.png); background-position: center; background-size: cover;}
+  .hero .sw-cognac {background-image: url(images/bg1.png); background-position: 0px 0px; background-size: cover;}
   .hero .sw-chocolate {background-image: url(images/bg3.png); background-position: center; background-size: cover;}
   .hero .sw-oxblood {background-image: url(images/fondo-1.jpg); background-position: center; background-size: cover;}
   .hero .sw-negro {background-image: url(images/fondo-2.jpg); background-position: center; background-size: cover;}
@@ -234,6 +234,10 @@
     .swatch-controls{ flex-direction:row; justify-content:center; }
     .swatch-dots{ flex-direction:row; }
     .swatch-stage{ height:340px; }
+    .hero .sw-cognac {background-image: url(images/bg1.png); background-position: center; background-size: cover;}
+    .swatch-leather{ font-size:9.5px;}
+    .swatch-name{ font-size:25px;}
+    .swatch-copy{ font-size:14.5px; line-height:1.55; max-width:30ch;padding: 10px;}
   }
 
   /* ---------- MANIFESTO ---------- */
@@ -318,10 +322,10 @@
   .cat-card:hover .cat-link svg{ transform:translateX(4px); }
 
   .sw-moda{background-image: url("images/chale.png"); background-position: center; background-size: cover;}
-  .sw-billeteras{background-image: url("images/bille-male-09.png"); background-position: center; background-size: cover;}
+  .sw-billeteras{background-image: url("img/bi-01.jpg"); background-position: center; background-size: cover;}
   .sw-carteras{background-image: url("images/CB-02.jpg"); background-position: center; background-size: cover;}
   .sw-mates{background-image: url("images/1785352170891.png"); background-position: center; background-size: cover;}
-  .sw-accesorios{background-image: url("images/pul.png"); background-position: center; background-size: cover;}
+  .sw-accesorios{background-image: url("img/pc-01.jpg"); background-position: center; background-size: cover;}
 
   #oficio {background-image: url(09.jpg); background-position: center; background-size: cover; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken;}
 
@@ -512,16 +516,16 @@
           <div class="cat-swatch sw-billeteras"><!--span>Chocolate</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Billeteras</h3>
-            <p class="cat-desc">Chica, liviana, exacta. La llevás todos los días hasta que ya no imaginás salir sin ella.</p>
-            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+            <p class="cat-desc">Aca vas a encontrar diferentes modelos, colores y texturas de billeteras, tarjeteros simples, tarjeteros bifold, monederos... </p>
+            <a href="catalogo.html?filtro=billeteras" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
         <div class="cat-card">
           <div class="cat-swatch sw-carteras"><!--span>Oxblood</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Carteras</h3>
-            <p class="cat-desc">Con lugar para lo que necesitás y carácter propio desde el primer día que la usás.</p>
-            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+            <p class="cat-desc">Tenemos diferentes tipos de carteras, bandoleras y totebags, seguro encontras la indicada para vos.</p>
+            <a href="catalogo.html?filtro=carteras" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
         <div class="cat-card">
@@ -529,23 +533,23 @@
           <div class="cat-body">
             <h3 class="cat-name">Moda</h3>
             <p class="cat-desc">Una sola pieza de cuero, envuelta a mano. Lo cruzás y salís — no necesitás nada más.</p>
-            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+            <a href="catalogo.html" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
         <div class="cat-card">
           <div class="cat-swatch sw-mates"><!--span>Negro</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Mates</h3>
-            <p class="cat-desc">Para la mesa de todos los días. Cuero grueso, base firme, un ritual que se merece esto.</p>
-            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+            <p class="cat-desc">Materas, posamates, yerberas, el accesorio de cuero que necesites para el mate esta aca.</p>
+            <a href="catalogo.html" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
         <div class="cat-card">
           <div class="cat-swatch sw-accesorios"><!--span>Cognac</span--></div>
           <div class="cat-body">
             <h3 class="cat-name">Accsesorios</h3>
-            <p class="cat-desc">Una sola pieza de cuero, envuelta a mano. Lo cruzás y salís — no necesitás nada más.</p>
-            <a href="#contacto" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+            <p class="cat-desc">Lo que no encontras en las otras categorias esta aca por ejemplo llaveros, estuche para cuchillos, despojadores erc.</p>
+            <a href="catalogo.html" class="cat-link">Ver más <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
           </div>
         </div>
       </div>
@@ -634,14 +638,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo" aria-label="Arise Taller">
-          <!--svg viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="19" stroke="#C6963F" stroke-width="1.1"/>
-            <path d="M12 26 L20 12 L28 26" stroke="#F1E6D3" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-            <path d="M15 21 H25" stroke="#C6963F" stroke-width="1.4"/>
-            <circle cx="20" cy="12" r="1.6" fill="#C6963F"/>
-          </svg-->
-          <span class="logo-text">
-            <span class="name">Arise Taller</span>
+          <span class="logo-text">            
+            <img src="images/loguito.png" >
             <span class="sub">Artesania en Cuero</span>
           </span>
         </a>
@@ -650,7 +648,7 @@
       <div class="footer-col">
         <h4>Navegación</h4>
         <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
+        <a href="catalogo.html">Catálogo</a>
         <a href="#oficio">Nuestro oficio</a>
         <a href="#cuidado">Cuidado del cuero</a>
       </div>
