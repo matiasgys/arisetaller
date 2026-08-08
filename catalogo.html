@@ -448,21 +448,21 @@
   // ---------- Product data ----------
   const products = [
     { cat:'carteras', icon:'billetera', name:'Cartera Baguette', price:3000, sku:'CA-03', leather:'cognac', alt:'Cartera Baguette', stock:false,
-      images:['img/ca-03.jpg','img/ca-03-02.jpg','img/ca-03-02.jpg'], desc:'La guardás en el bolsillo de atrás y ni la notás — hasta que ves cómo se va oscureciendo.' },
+      images:['img/ca-03.jpg','img/ca-03-02.jpg','img/ca-03-02.jpg'], desc:'Salí liviana y llevá solo lo esencial colgado del hombro. Su cuero texturizado y su diseño simple están pensados para resistir tu ritmo diario, manteniendo intacto el carácter de una pieza cosida a mano y hecha para durar años.' },
 
-    { cat:'carteras', icon:'billetera', name:'Cartera Espiga', price:2800, sku:'CA-09', leather:'chocolate', alt:'Cartera Espiga', stock:false, images:['img/ca-09.jpg','img/ca-09-01.jpg'], desc:'Con lugar de sobra para tarjetas y efectivo, sin perder el perfil bajo que buscás.' },
+    { cat:'carteras', icon:'billetera', name:'Cartera Espiga', price:2800, sku:'CA-09', leather:'chocolate', alt:'Cartera Espiga', stock:false, images:['img/ca-09.jpg','img/ca-09-01.jpg'], desc:'Colgátela del hombro y llevá algo que rompe con lo común. Su costura rústica hecha a mano te asegura una pieza irrepetible, creada con calma y dedicación para acompañar tu día a día lejos de la producción en serie.' },
 
     { cat:'carteras', icon:'billetera', name:'Cartera Flor', price:3600, sku:'CA-10', leather:'oxblood', alt:'Cartera Flor', stock:true,
-      images:['img/ca-10.jpg','img/ca-10-01.jpg'], desc:'Un broche a presión suma un compartimento extra, para cuando el vuelto también importa.' },
+      images:['img/ca-10.jpg','img/ca-10-01.jpg'], desc:'Organizá tu rutina llevándola cómodamente al hombro. Una estructura firme y un diseño funcional que te da la seguridad de cargar tus cosas en una pieza armada sin atajos.' },
 
     { cat:'carteras', icon:'billetera', name:'ToteBag NM', price:3500, sku:'TO-02', leather:'negro', alt:'ToteBag', stock:true, 
-      images:['img/to-02.jpg','img/to-02-01.jpg'], desc:'Cuatro tarjetas y algo de efectivo. Cabe en cualquier bolsillo, hasta el más chico.' },
+      images:['img/to-02.jpg','img/to-02-01.jpg'], desc:'Cargá tu día a día colgada del hombro con total comodidad. Su correa ancha y robusta está diseñada para bancar tu rutina, dándote la seguridad de llevar una pieza auténtica y resistente.' },
 
     { cat:'carteras', icon:'cartera', name:'Cartera Cris', price:3000, sku:'CA-11', leather:'cognac', alt:'negro', stock:false,
-      images:['img/ca-11.jpg','img/ca-11-01.jpg'], desc:'La cruzás y te olvidás que la tenés puesta, hasta que alguien te pregunta dónde la conseguiste.' },
+      images:['img/ca-11.jpg','img/ca-11-01.jpg'], desc:'Su diseño plegado y su cuero rojo elevan cualquier outfit, dándote la tranquilidad de elegir una pieza única; esa misma que resiste tu rutina de todos los días y que te hace destacar cuando salís de noche.' },
 
-    { cat:'billeteras', icon:'bolso', name:'Billetera Clasica', price:1500, sku:'BI-01', leather:'oxblood', alt:'billetera', stock:true, 
-      images:['img/bi-01.jpg','img/bi-01-01.jpg'], desc:'Billeteras clasicas en varios colores, rojo, violeta, negro, varios tonos de marron etc 100% cuero pegadas y cosidas a mano.' },
+    { cat:'billeteras', icon:'bolso', name:'Billetera Clásica', price:1500, sku:'BI-01', leather:'oxblood', alt:'billetera', stock:true, 
+      images:['img/bi-01.jpg','img/bi-01-01.jpg'], desc:'Sacá tu billetera y sentí la diferencia del cuero real. Lejos del plástico y lo descartable. Elegí tu color favorito y disfrutá cómo esta pieza, cosida a mano, se va amoldando con el roce de tus manos y tus bolsillos. Un clásico que envejece con vos.' },
 
     { cat:'billeteras', icon:'posamate', name:'Billetera de Dama', price:2000, sku:'BI-02', leather:'oxblood', alt:'cognac', stock:true,
       images:['img/bi-02-01.jpg', 'img/bi-02.jpg'], desc:'Billetera de dama con seis reparticiones para tarjetas, una para billetes y un bolsillos con sierre para monedas.' },
@@ -478,16 +478,16 @@
 
 
     { cat:'accesorios', icon:'bolso', name:'Porta Cuchillos', price:3500, sku:'PC-01', leather:'cognac', alt:'varios', stock:false,
-      images:['img/pc-01.jpg','img/pc-01-01.jpg'], desc:'Una sola pieza de cuero, envuelta a mano. Te lo cruzás y salís, no necesitás nada más.' },
+      images:['img/pc-01.jpg','img/pc-01-01.jpg'], desc:'Protegé tus cuchillos con el mismo respeto con el que fueron hechos.Cuero cortado y cosido a mano para guardar y transportar con seguridad. ' },
 
     { cat:'mates', icon:'bolso', name:'Matera', price:2000, sku:'MA-01', leather:'negro', alt:'matera', stock:false,
-      images:['img/ma-01.jpg', 'img/ma-01.jpg'], desc:'Matera de cuero con base y separacion interna de madera muy comoda. El precio puede variar si es con grabado o no.' },
+      images:['img/ma-01.jpg', 'img/ma-01.jpg'], desc:'Prepará tu mate apoyando el termo en algo hecho con dedicación.No es solo una funda; es el complemento perfecto para tu ritual diario. Con su base de madera y el cuero que protege tu equipo, vas a sentir el valor de lo artesanal cada vez que cebés. Hecha para acompañar miles de mates.' },
 
     { cat:'mates', icon:'bolso', name:'PosaMates', price:450, sku:'PM-01', leather:'chocolate', alt:'posamates', stock:true,
-      images:['img/pm-01.jpg','img/pm-01-01.jpg'], desc:'Varios colores marron claro, marron oscuro, rojo, verde etc., relgulable sirve para varios tamaños.' },
+      images:['img/pm-01.jpg','img/pm-01-01.jpg'], desc:'Varios colores marron claro, marron oscuro, rojo, verde etc., regulable sirve para varios tamaños.' },
 
     { cat:'mates', icon:'posamate', name:'PosaMate Grab. Laser', price:550, sku:'PM-02', leather:'cognac', alt:'posamate', stock:true,
-      images:['img/pm-10.jpg', 'img/pm-10.jpg'], desc:'Relgulable sirve para varios tamaños, con grabado laser a eleccion.' },
+      images:['img/pm-10.jpg', 'img/pm-10.jpg'], desc:'Regulable sirve para varios tamaños, con grabado laser a eleccion.' },
 
     { cat:'moda', icon:'posamate', name:'Faja con flecos', price:1400 , sku:'FA-01', leather:'chocolate', alt:'faja', stock:true,
        images:['img/fa-01.png', 'img/fa-01.png'], desc:'Faja de cuero con flecos sin hebilla, te va a completar muchos looks, muy a la moda.' },
